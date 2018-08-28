@@ -1,6 +1,6 @@
 # PHP JWT Technical Challenge
 
-##Commands
+## Commands
 Installation:
 ```
 make build
