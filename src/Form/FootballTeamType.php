@@ -3,7 +3,9 @@
 
 namespace App\Form;
 
+use App\Entity\FootballLeague;
 use App\Entity\FootballTeam;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,6 +23,9 @@ class FootballTeamType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('strip', TextType::class)
+            ->add('footballLeague', EntityType::class, [
+                'class' => FootballLeague::class,
+            ])
         ;
     }
 

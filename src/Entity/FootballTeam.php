@@ -31,7 +31,7 @@ class FootballTeam
     private $strip;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\FootballLeague", inversedBy="teams")
+     * @ORM\ManyToOne(targetEntity="App\Entity\FootballLeague", inversedBy="footballTeams")
      */
     private $footballLeague;
 
@@ -74,5 +74,17 @@ class FootballTeam
         $this->footballLeague = $footballLeague;
 
         return $this;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'strip' => $this->getStrip(),
+            'footballLeague' => $this->getFootballLeague() !== null
+                ? $this->getFootballLeague()->getId()
+                : null
+        ];
     }
 }

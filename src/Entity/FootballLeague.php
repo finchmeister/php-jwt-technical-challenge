@@ -91,4 +91,21 @@ class FootballLeague
             $this->removeFootballTeam($footballTeam);
         }
     }
+
+    public function toArray(): array
+    {
+        $footballTeams = [];
+        foreach ($this->getFootballTeams() as $footballTeam) {
+            $footballTeams[] = [
+                'id' => $footballTeam->getId(),
+                'name' => $footballTeam->getName(),
+                'strip' => $footballTeam->getStrip(),
+            ];
+        }
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'footballTeams' => $footballTeams,
+        ];
+    }
 }

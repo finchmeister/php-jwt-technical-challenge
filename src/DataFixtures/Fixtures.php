@@ -9,13 +9,18 @@ use App\Entity\FootballTeam;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class FootballFixtures extends Fixture
+class Fixtures extends Fixture
 {
+
     public function load(ObjectManager $manager): void
     {
         $premierLeague = new FootballLeague();
         $premierLeague->setName('Premier League');
         $manager->persist($premierLeague);
+
+        $championship = new FootballLeague();
+        $championship->setName('Championship');
+        $manager->persist($championship);
 
         $footballTeamCSV = $this->readFootballTeamCSV();
         foreach ($footballTeamCSV as $line) {

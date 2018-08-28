@@ -7,9 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 
 class FootballLeagueController extends AbstractController
@@ -18,28 +15,22 @@ class FootballLeagueController extends AbstractController
      * 1. Get a list of football teams in a single league
      * @Route("/api/football-league/{id<\d+>}", name="api_football_league_show", methods={"GET"})
      */
-    public function showAction($id)
+    public function showAction($id): JsonResponse
     {
-        $footballLeague = $this->getDoctrine()->getRepository(FootballLeague::class)
+        $footballLeague = $this->getDoctrine()
+            ->getRepository(FootballLeague::class)
             ->find($id);
 
-        // TODO: return json
         if ($footballLeague === null) {
-            throw $this->createNotFoundException(sprintf(
-                'Football League with id %s not found',
-                $id
-            ));
+            return new JsonResponse(
+                sprintf('Football League with id %s not found', $id),
+                Response::HTTP_BAD_REQUEST
+            );
         }
 
-        // TODO: extract
-        $encoder = new JsonEncoder();
-        $normalizer = new ObjectNormalizer();
-        $serializer = new Serializer([$normalizer], [$encoder]);
-        $normalizer->setIgnoredAttributes(['footballLeague']);
-
         return new JsonResponse(
-            $serializer->serialize($footballLeague, 'json'),
-Response::HTTP_OK,
+            $this->jsonSerialiseFootballLeague($footballLeague),
+            Response::HTTP_OK,
             [],
             true
         );
@@ -49,20 +40,19 @@ Response::HTTP_OK,
      * 4. Delete a football league
      * @Route("/api/football-league/{id<\d+>}", name="api_football_league_delete", methods={"DELETE"})
      */
-    public function deleteAction($id)
+    public function deleteAction($id): JsonResponse
     {
-        $footballLeague = $this->getDoctrine()->getRepository(FootballLeague::class)
+        $footballLeague = $this->getDoctrine()
+            ->getRepository(FootballLeague::class)
             ->find($id);
 
-        // TODO: return json
         if ($footballLeague === null) {
-            throw $this->createNotFoundException(sprintf(
-                'Football League with id %s not found',
-                $id
-            ));
+            return new JsonResponse(
+                sprintf('Football League with id %s not found', $id),
+                Response::HTTP_BAD_REQUEST
+            );
         }
 
-        // TODO: extract
         $footballLeague->removeAllFootballTeams();
         $em = $this->getDoctrine()->getManager();
         $em->remove($footballLeague);
@@ -74,5 +64,13 @@ Response::HTTP_OK,
         );
     }
 
-
+    /**
+     * TODO: could use a more sophisticated serialiser such as the jms serialiser
+     * @param FootballLeague $footballLeague
+     * @return string
+     */
+    protected function jsonSerialiseFootballLeague(FootballLeague $footballLeague): string
+    {
+        return json_encode($footballLeague->toArray());
+    }
 }
