@@ -8,7 +8,7 @@ class FootballTeamControllerTest extends ApiTestCase
 {
 
     /**
-     * @dataProvider dataProviderAuthenticatedRoutesr
+     * @dataProvider dataProviderAuthenticatedRoutes
      * @param string $method
      * @param string $route
      */

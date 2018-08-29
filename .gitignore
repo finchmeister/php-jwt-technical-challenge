@@ -16,5 +16,5 @@
 ###< symfony/web-server-bundle ###
 
 ###> lexik/jwt-authentication-bundle ###
-/config/jwt/*.pem
+# /config/jwt/*.pem # Don't worry about securing these for a demo
 ###< lexik/jwt-authentication-bundle ###
