@@ -1,9 +1,18 @@
 # PHP JWT Technical Challenge
 
+## Requirements
+- PHP 7.2
+- Composer
+- Sqlite
+
 ## Commands
 Installation:
 ```
 make build
+```
+Start local webserver:
+```
+make start
 ```
 Run tests:
 ```
@@ -15,13 +24,13 @@ make stop
 ```
 
 ### Credentials
-user: `bob`
-password: `password`
+User: `bob`
+Password: `password`
 
 ## Instructions
 
-Create a new [HTTP request file](https://www.jetbrains.com/help/phpstorm/http-client-in-product-code-editor.html) 
-in PhpStorm with the contents below:
+Install the project with `make build`, then create a new [HTTP request file](https://www.jetbrains.com/help/phpstorm/http-client-in-product-code-editor.html) 
+in PhpStorm with the contents below and run each request in order:
 ```
 ### Get JWT
 
