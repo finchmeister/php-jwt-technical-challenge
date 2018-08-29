@@ -1,5 +1,7 @@
 # PHP JWT Technical Challenge
 
+[![Build Status](https://travis-ci.org/finchmeister/php-jwt-technical-challenge.svg?branch=master)](https://travis-ci.org/finchmeister/php-jwt-technical-challenge)
+
 ## Requirements
 - PHP 7.2
 - Composer
