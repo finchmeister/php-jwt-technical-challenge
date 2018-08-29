@@ -6,7 +6,7 @@ build:
 	bin/console doctrine:schema:update --force --no-interaction
 	bin/console doctrine:fixtures:load -n
 
-start
+start:
 	bin/console server:start
 
 stop:
